@@ -4,8 +4,9 @@ INPUT = "68376334795224855827459835293967497295464175589881588256882344699473595
 
 star1_sum = 0
 star2_sum = 0
+
 for i in range(len(INPUT)):
-    if INPUT[i] == INPUT[(i+1) % len(INPUT)]:
+    if INPUT[i] == INPUT[(i + 1) % len(INPUT)]:
         star1_sum += int(INPUT[i])
 
     if INPUT[i] == INPUT[(i + (len(INPUT)/2)) % len(INPUT)]:
