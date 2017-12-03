@@ -51,8 +51,8 @@ class spiralMemory():
 
     def calcVal(self):
         totalValue = 0
-        WindDirections = [ [-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1] ]
-        for direction in WindDirections:
+        windDirections = [ [-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1] ]
+        for direction in windDirections:
             if tuple([sum(x) for x in zip(self.coor, direction)]) in self.values:
                 totalValue += (self.values[tuple([sum(x) for x in zip(self.coor, direction)])])
         self.values[tuple(self.coor)] = totalValue
