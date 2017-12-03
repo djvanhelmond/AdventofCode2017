@@ -1,12 +1,12 @@
 #!/usr/local/bin/python3
 
-import math
-
 INPUT = 289326
-c = math.floor(math.sqrt(INPUT))
 
+################################################################################################
+import math
+c = math.floor(math.sqrt(INPUT))
 if math.pow(c,2) == INPUT:
-    print ("Star 1: %i" % int(math.floor(brCorner/2)*2))
+    print ("Star 1: %i" % int(math.floor(c/2)*2))
 else:
     ring = int(math.ceil(c/2))
     rest = (INPUT - (math.pow(c,2))) % (c + 1)
@@ -23,21 +23,16 @@ class spiralMemory():
         self.dir = "r"
         self.values = {(0, 0): 1}
         self.highest = 1
-        self.moves = {
-            "u": [0, -1],
-            "l": [-1, 0],
-            "r": [1, 0],
-            "d": [0, 1]
-        }
 
     def step(self):
-        self.nrSteps += 1
         self.movePos()
         self.calcVal()
         self.updateDir()
+        self.nrSteps += 1
 
     def movePos(self):
-        self.coor = [sum(x) for x in zip(self.coor, self.moves[self.dir])]
+        moves = {"u": [0, -1], "l": [-1, 0], "r": [1, 0], "d": [0, 1] }
+        self.coor = [sum(x) for x in zip(self.coor, moves[self.dir])]
 
     def updateDir(self):
         if self.coor[0] > abs(self.coor[1]):
