@@ -5,21 +5,21 @@ INPUT = [ 0, 5, 10, 0, 11, 14, 13, 4, 11, 8, 8, 7, 1, 4, 12, 11 ]
 
 class Memory():
     def __init__(self, configuration):
-        self.cycles = 0
+        self.cycles = 1
         self.looplength = 0
         self.banks = {}
         self.seen = {}
         for i in range(len(configuration)):
             self.banks[i] = configuration[i]
 
-    def findMostBlocks(self):
+    def __findMostBlocks(self):
         highest = 0
         for i in self.banks.keys():
             if self.banks[i] > self.banks[highest]:
                 highest = i
         return highest
 
-    def redistributeBlocks(self, bankId):
+    def __redistributeBlocks(self, bankId):
         blocks = self.banks[bankId]
         self.banks[bankId] = 0
         for i in range(1, blocks + 1):
@@ -27,12 +27,12 @@ class Memory():
 
     def cycle(self):
         while not list(self.banks.values()) in self.seen.values():
-            self.cycles += 1
             self.seen[self.cycles] = list(self.banks.values())
-            self.redistributeBlocks(self.findMostBlocks())
+            self.__redistributeBlocks(self.__findMostBlocks())
+            self.cycles += 1
         for k, v in self.seen.iteritems():
             if v == list(self.banks.values()):
-                self.looplength = self.cycles - k + 1
+                self.looplength = self.cycles - k
 
 
 mem = Memory(INPUT)
