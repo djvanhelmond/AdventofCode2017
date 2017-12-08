@@ -30,9 +30,9 @@ class Memory():
             self.seen[self.cycles] = list(self.banks.values())
             self.__redistributeBlocks(self.__findMostBlocks())
             self.cycles += 1
-        for k, v in self.seen.iteritems():
-            if v == list(self.banks.values()):
-                self.looplength = self.cycles - k
+        for key, value in self.seen.iteritems():
+            if value == list(self.banks.values()):
+                self.looplength = self.cycles - key
 
 
 mem = Memory(INPUT)
