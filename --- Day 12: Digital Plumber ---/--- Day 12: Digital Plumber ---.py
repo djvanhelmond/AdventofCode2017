@@ -2,22 +2,13 @@
 
 class PipeSystem():
     def __init__(self, programlist):
-        self.Programs = self.__loadPrograms([ program.split("<->") for program in programlist ])
-        self.Graph = self.__buildGraph()
+        self.Graph = self.__buildGraph([ program.split("<->") for program in programlist ])
 
-    def __loadPrograms(self, programlist):
+    def __buildGraph(self, programlist):
         Nodes = {}
         for program in programlist:
             Nodes[int(program[0])] = [ int(x) for x in program[1].split(",") ]
         return Nodes
-
-    def __buildGraph(self):
-        G = {}
-        for source in self.Programs:
-            G[source] = {}
-            for destination in self.Programs[source]:
-                G[source][destination] = 1
-        return G
 
     def depthFirstSearch(self, start, graph, visited=None):
         if not visited:
@@ -29,7 +20,7 @@ class PipeSystem():
 
     def countGroups(self):
         count = 0
-        allPrograms = list(self.Programs)
+        allPrograms = list(self.Graph)
         while len(allPrograms) != 0:
             count += 1
             group = self.depthFirstSearch(allPrograms[0], self.Graph)
