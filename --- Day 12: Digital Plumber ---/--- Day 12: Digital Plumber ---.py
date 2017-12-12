@@ -29,7 +29,7 @@ class PipeSystem():
 
     def countGroups(self):
         count = 0
-        allPrograms = [ x for x in self.Programs ]
+        allPrograms = list(self.Programs)
         while len(allPrograms) != 0:
             count += 1
             group = self.depthFirstSearch(allPrograms[0], system.Graph)
