@@ -20,7 +20,7 @@ class PipeSystem():
         return G
 
     def depthFirstSearch(self, start, graph, visited=None):
-        if visited is None:
+        if not visited:
             visited = set()
         visited.add(start)
         for next in set(graph[start]) - visited:
