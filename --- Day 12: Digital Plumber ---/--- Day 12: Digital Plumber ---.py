@@ -32,7 +32,7 @@ class PipeSystem():
         allPrograms = list(self.Programs)
         while len(allPrograms) != 0:
             count += 1
-            group = self.depthFirstSearch(allPrograms[0], system.Graph)
+            group = self.depthFirstSearch(allPrograms[0], self.Graph)
             allPrograms = [program for program in allPrograms if program not in group ]
         return count
 
