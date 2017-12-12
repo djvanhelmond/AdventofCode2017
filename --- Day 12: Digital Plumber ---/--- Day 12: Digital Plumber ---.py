@@ -27,7 +27,7 @@ class PipeSystem():
             self.depthFirstSearch(next, graph, visited)
         return list(visited)
 
-    def findGroups(self):
+    def countGroups(self):
         groups = []
         for source in self.Programs:
             group = sorted(self.depthFirstSearch(source, system.Graph))
@@ -41,5 +41,5 @@ with open("./input.txt") as f:
 
 system = PipeSystem(INPUT)
 print("Star 1: %s" % len(system.depthFirstSearch(0, system.Graph)))
-print("Star 2: %s" % system.findGroups())
+print("Star 2: %s" % system.countGroups())
 
