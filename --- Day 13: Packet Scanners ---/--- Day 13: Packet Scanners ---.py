@@ -36,55 +36,11 @@ class Firewall():
         else:
             return 0
 
-
-    def visOut(self):
-        time.sleep(0.2)
-        print("---------------------------\n")
-        if self.time == -1:
-            m = "Initial State:\n"
-        else:
-            m = "Picosecond " + str(self.time) + ": " + str(self.severity) +"\n"
-        layers = max(self.geometry) + 1
-        depth = self.geometry[max(self.geometry, key=self.geometry.get)]
-        for l in range(layers):
-            if l < 10:
-                m += " " + str(l) + "  "
-            else:
-                m += str(l) + "  "
-        m += "\n"
-        for d in range(depth):
-            for l in range(layers):
-                if (l in self.geometry) and d < self.geometry[l]:
-                    if self.scannerPosition[l] == d:
-                        if self.curPos == l and d == 0:
-                            m += "(S) "
-                        else:
-                            m += "[S] "
-                    else:
-                        if self.curPos == l and d == 0:
-                            m += "( ) "
-                        else:
-                            m += "[ ] "
-                else:
-                    if d == 0:
-                        if self.curPos == l and d == 0:
-                            m += "(.) "
-                        else:
-                            m += "... "
-                    else:
-                        m += "    "
-            m += "\n"
-        m += "\n"
-        print(m)
-
     def tick(self):
         self.time += 1
         self.curPos += 1
         self.__updateScanners()
         self.severity += self.__calcCaught()
-
-
-
 
 
 
