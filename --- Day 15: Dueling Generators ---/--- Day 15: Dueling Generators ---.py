@@ -20,7 +20,7 @@ class Judge():
         self.count = 0
 
     def evalNext(self):
-        if bin(generatorA.getNext())[2:].zfill(32)[16:] == bin(generatorB.getNext())[2:].zfill(32)[16:]:
+        if generatorA.getNext()&0xffff == generatorB.getNext()&0xffff:
             self.count += 1
 
 
