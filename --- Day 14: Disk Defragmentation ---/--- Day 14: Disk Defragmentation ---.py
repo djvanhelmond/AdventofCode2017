@@ -83,7 +83,7 @@ class Disk():
     def calcUsedSquares(self):
         return (sum( [ self.diskLayout[x].count("1") for x in range(self.height) ] ))
 
-    def countGroups(self):
+    def countRegions(self):
         count = 0
         allSquares = list(self.Graph)
         while len(allSquares) != 0:
@@ -99,7 +99,7 @@ INPUT = "jxqlasbh"
 
 disk = Disk(INPUT)
 print("Star 1: %i" % disk.calcUsedSquares())
-print("Star 2: %i" % disk.countGroups())
+print("Star 2: %i" % disk.countRegions())
 
 
 
