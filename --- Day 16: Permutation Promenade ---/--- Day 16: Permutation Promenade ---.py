@@ -18,7 +18,7 @@ class LineDance():
             if move[0] == "s":
                 self.__moveSpin(int(move[1:]))
             elif move[0] == "x":
-                self.__moveExchange([ int(x) for x in move[1:].split('/') ])
+                self.__moveExchange(map(int,move[1:].split('/')))
             elif move[0] == "p":
                 self.__movePartner(move[1:].split('/'))
 
