@@ -38,14 +38,12 @@ print("Star 1: %s" % "".join(dancers.line))
 
 
 seen = []
-cycleSize = 0
 dancers = LineDance(16)
 while "".join(dancers.line) not in seen:
-    cycleSize += 1
     seen.append("".join(dancers.line))
     for move in INPUT:
         dancers.executeMove(move)
-for _ in range(1000000000 % cycleSize):
+for _ in range(1000000000 % len(seen)):
     for move in INPUT:
         dancers.executeMove(move)
 print("Star 2: %s" % "".join(dancers.line))
