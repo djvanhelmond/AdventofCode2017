@@ -20,7 +20,7 @@ class Judge():
         self.count = 0
 
     def evalNext(self):
-        if generatorA.getNext()&0xffff == generatorB.getNext()&0xffff:
+        if self.generatorA.getNext()&0xffff == self.generatorB.getNext()&0xffff:
             self.count += 1
 
 
