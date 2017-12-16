@@ -34,13 +34,13 @@ START_VALUE_GEN_B = 191
 generatorA = Generator(START_VALUE_GEN_A, FACTOR_GEN_A, MODULO, 1)
 generatorB = Generator(START_VALUE_GEN_B, FACTOR_GEN_B, MODULO, 1)
 judge = Judge(generatorA, generatorB)
-for i in range(40000000):
+for i in xrange(40000000):
     judge.evalNext()
 print("Star 1: %i" % judge.count)
 
 generatorA = Generator(START_VALUE_GEN_A, FACTOR_GEN_A, MODULO, 4)
 generatorB = Generator(START_VALUE_GEN_B, FACTOR_GEN_B, MODULO, 8)
 judge = Judge(generatorA, generatorB)
-for i in range(5000000):
+for i in xrange(5000000):
     judge.evalNext()
 print("Star 2: %i" % judge.count)
