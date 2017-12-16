@@ -43,9 +43,4 @@ while "".join(dancers.line) not in seen:
     seen.append("".join(dancers.line))
     for move in INPUT:
         dancers.executeMove(move)
-for _ in range(1000000000 % len(seen)):
-    for move in INPUT:
-        dancers.executeMove(move)
-print("Star 2: %s" % "".join(dancers.line))
-
-
+print("Star 2: %s" % seen[1000000000 % len(seen)])
