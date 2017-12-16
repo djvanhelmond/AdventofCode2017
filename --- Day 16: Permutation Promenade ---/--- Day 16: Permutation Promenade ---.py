@@ -31,16 +31,11 @@ class LineDance():
 with open("./input.txt") as f:
     INPUT = f.readlines()[0].split(",")
 
-dancers = LineDance(16)
-for move in INPUT:
-    dancers.executeMove(move)
-print("Star 1: %s" % "".join(dancers.line))
-
-
 seen = []
 dancers = LineDance(16)
 while "".join(dancers.line) not in seen:
     seen.append("".join(dancers.line))
     for move in INPUT:
         dancers.executeMove(move)
+print("Star 1: %s" % seen[1])
 print("Star 2: %s" % seen[1000000000 % len(seen)])
