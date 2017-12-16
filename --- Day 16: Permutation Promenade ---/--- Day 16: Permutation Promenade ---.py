@@ -18,7 +18,6 @@ class LineDance():
         self.__moveExchange([firstPos,secondPos])
 
     def executeMove(self, move):
-#        print(self.line, move)
         if move[0] in "sxp":
             if move[0] == "s":
                 self.__moveSpin(int(move[1:]))
@@ -26,17 +25,29 @@ class LineDance():
                 self.__moveExchange([ int(x) for x in move[1:].split('/') ])
             if move[0] == "p":
                 self.__movePartner(move[1:].split('/'))
-#        print(self.line)
 
 
 
 with open("./input.txt") as f:
     INPUT = f.readlines()[0].split(",")
 
-
 dancers = LineDance(16)
 for move in INPUT:
     dancers.executeMove(move)
 print("Star 1: %s" % "".join(dancers.line))
+
+
+seen = []
+cycleSize = 0
+dancers = LineDance(16)
+while "".join(dancers.line) not in seen:
+    cycleSize += 1
+    seen.append("".join(dancers.line))
+    for move in INPUT:
+        dancers.executeMove(move)
+for _ in range(1000000000 % cycleSize):
+    for move in INPUT:
+        dancers.executeMove(move)
+print("Star 2: %s" % "".join(dancers.line))
 
 
