@@ -8,22 +8,18 @@ class LineDance():
         self.line = self.line[-places:] + self.line[:-places]
 
     def __moveExchange(self, pos):
-        temp = self.line[pos[0]]
-        self.line[pos[0]] = self.line[pos[1]]
-        self.line[pos[1]] = temp
+        self.line[pos[0]], self.line[pos[1]] = self.line[pos[1]], self.line[pos[0]]
 
     def __movePartner(self, chars):
-        firstPos = self.line.index(chars[0])
-        secondPos = self.line.index(chars[1])
-        self.__moveExchange([firstPos,secondPos])
+        self.__moveExchange([self.line.index(chars[0]),self.line.index(chars[1])])
 
     def executeMove(self, move):
         if move[0] in "sxp":
             if move[0] == "s":
                 self.__moveSpin(int(move[1:]))
-            if move[0] == "x":
+            elif move[0] == "x":
                 self.__moveExchange([ int(x) for x in move[1:].split('/') ])
-            if move[0] == "p":
+            elif move[0] == "p":
                 self.__movePartner(move[1:].split('/'))
 
 
