@@ -1,7 +1,5 @@
 #!/usr/local/bin/python3
 
-import time
-
 class messageQueue():
     def __init__(self):
         self.queues = {}
@@ -66,7 +64,6 @@ class Duet():
     def __rcv(self, x):
         self.deadlock = True
         rxBuffer = self.mq.rcvValue(self.id)
-        print("RX: " + str(rxBuffer))
         if rxBuffer:
             self.registers[x] = rxBuffer
             self.deadlock = False
@@ -93,7 +90,6 @@ class Duet():
             self.program_counter += 1
 
     def tick(self):
-#        print("---TICK---")
         if not self.__exitCriteria():
             self.__execute()
 
@@ -106,28 +102,10 @@ programZero = Duet((0, 1), INPUT, mq)
 programOne = Duet((1, 0), INPUT, mq)
 
 ticks = 0
-
 while not (programOne.deadlock and programZero.deadlock):
     ticks += 1
-#    print("-------------------------")
-#    print("tick: ", ticks)
-#    print("P0 PC: ", programZero.program_counter)
-#    print("P0 instr: ", programZero.instruction_list[programZero.program_counter])
     programZero.tick()
-#    print("P0 regs: ", programZero.registers)
-#    print("P0 deadlock: ", programZero.deadlock)
-#    print("P0 valSent: ", programZero.valSent)
-#    print("MMMMMMMM")
-#    print("P1 PC: ", programOne.program_counter)
-#    print("P1 instr: ", programOne.instruction_list[programOne.program_counter])
     programOne.tick()
-#    print("P1 regs: ", programOne.registers)
-#    print("P1 deadlock: ", programOne.deadlock)
-#    print("P1 valSent: ", programOne.valSent)
-#    print("MQ: ", mq.queues[0], mq.queues[1])
-    print("MQ: ", len(mq.queues[0]), len(mq.queues[1]))
-    #time.sleep(0.1)
 
-print(ticks)
-print(programOne.valSent)
+print("Star 2: %i" % programOne.valSent)
 
