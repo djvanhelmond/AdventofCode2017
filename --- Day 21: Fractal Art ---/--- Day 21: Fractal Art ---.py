@@ -10,18 +10,12 @@ class artGenerator():
         return "/".join([ element[::-1] for element in inPattern.split("/") ])
 
     def __rotatePattern(self, inPattern):
-        newPatterns = []
-        new = inPattern
+        rotatedPatterns = []
         for _ in range(3):
-            pat = [ m[::-1] for m in new.split("/") ]
-            new = []
-            for i in range(len(pat)):
-                for j in range(len(pat)):
-                    new.append(pat[j][i])
-                new.append("/")
-            new = "".join(new)[:-1]
-            newPatterns.append(new)
-        return newPatterns
+            pat = [ element[::-1] for element in inPattern.split("/") ]
+            inPattern = "/".join([ "".join([ pat[j][i] for j in range(len(pat)) ]) for i in range(len(pat)) ])
+            rotatedPatterns.append(inPattern)
+        return rotatedPatterns
 
     def __augmentEnhancementRules(self, rules):
         rulebase = {}
