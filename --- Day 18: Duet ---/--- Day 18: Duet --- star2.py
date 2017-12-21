@@ -28,7 +28,7 @@ class Duet():
         self.program_counter = 0
         self.registers = {}
         self.registers["p"] = self.id
-        self.deadlock = False
+        self.rxLock = False
         self.valSent = 0
         self.__instr_set = {
             'set': self.__set,
@@ -62,11 +62,11 @@ class Duet():
         self.mq.sndValue(self.peer, int(x))
 
     def __rcv(self, x):
-        self.deadlock = True
+        self.rxLock = True
         rxBuffer = self.mq.rcvValue(self.id)
         if rxBuffer:
             self.registers[x] = rxBuffer
-            self.deadlock = False
+            self.rxLock = False
 
     def __jgz(self, x, y):
         if x.isalpha(): x = self.registers[x]
@@ -86,7 +86,7 @@ class Duet():
             if instruction[1] not in self.registers:
                 self.registers[instruction[1]] = 0
         self.__instr_set[instruction[0]](*instruction[1:])
-        if not self.deadlock:
+        if not self.rxLock:
             self.program_counter += 1
 
     def tick(self):
@@ -102,7 +102,7 @@ programZero = Duet((0, 1), INPUT, mq)
 programOne = Duet((1, 0), INPUT, mq)
 
 ticks = 0
-while not (programOne.deadlock and programZero.deadlock):
+while not (programOne.rxLock and programZero.rxLock):
     ticks += 1
     programZero.tick()
     programOne.tick()
