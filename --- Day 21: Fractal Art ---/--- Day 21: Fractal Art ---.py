@@ -52,7 +52,7 @@ class artGenerator():
                 newArt.append("".join(line))
         return newArt
 
-    def itterate(self):
+    def iterate(self):
         if (len(self.art) % 2 == 0): size = 2
         else: size = 3
         enhancedSquares = []
@@ -70,5 +70,5 @@ with open("./input.txt") as f:
 art = artGenerator(INPUT)
 for i in range(18):
     if i == 5: print("Star 1: %i" % art.countOn())
-    art.itterate()
+    art.iterate()
 print("Star 2: %i" % art.countOn())
