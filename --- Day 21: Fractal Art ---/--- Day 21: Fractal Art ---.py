@@ -46,7 +46,7 @@ class artGenerator():
         return newArt
 
     def iterate(self):
-        self.art = self.__recombineSquares([ self.enhanceRules[square] for square in self.__cutArtinSquares(self.art) ])
+        self.art = self.__recombineSquares([self.enhanceRules[square] for square in self.__cutArtinSquares(self.art)])
 
     def countOn(self):
         return sum([ i.count("#") for i in self.art ])
