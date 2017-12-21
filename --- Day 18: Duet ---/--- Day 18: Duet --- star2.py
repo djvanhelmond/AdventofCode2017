@@ -101,9 +101,7 @@ mq = messageQueue()
 programZero = Duet((0, 1), INPUT, mq)
 programOne = Duet((1, 0), INPUT, mq)
 
-ticks = 0
 while not (programOne.rxLock and programZero.rxLock):
-    ticks += 1
     programZero.tick()
     programOne.tick()
 
