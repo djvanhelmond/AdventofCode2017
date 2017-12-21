@@ -1,5 +1,4 @@
 #!/usr/local/bin/python3
-
 import math
 
 class artGenerator():
@@ -30,9 +29,7 @@ class artGenerator():
             inPattern, outPattern = rule.strip("\n").split(" => ")
             rulebase[inPattern] = outPattern
             rulebase[self.__flipPattern(inPattern)] = outPattern
-            for rotPattern in self.__rotatePattern(inPattern):
-                rulebase[rotPattern] = outPattern
-            for rotPattern in self.__rotatePattern(self.__flipPattern(inPattern)):
+            for rotPattern in self.__rotatePattern(inPattern) + self.__rotatePattern(self.__flipPattern(inPattern)):
                 rulebase[rotPattern] = outPattern
         return rulebase
 
@@ -40,7 +37,7 @@ class artGenerator():
         squares = []
         for i in range(0, len(art), size):
             for j in range(0, len(art[i]), size):
-                squares.append("/".join([ art[k][j:j+size] for k in range(i, i+size) ]))
+                squares.append( "/".join([ art[k][j:j+size] for k in range(i, i+size) ]))
         return squares
 
     def __recombineSquares(self, squares, size):
@@ -56,20 +53,15 @@ class artGenerator():
         return newArt
 
     def itterate(self):
-        if (len(self.art) % 2 == 0):
-            size = 2
-        else:
-            size = 3
-        squares = self.__cutArtinSquares(self.art, size)
+        if (len(self.art) % 2 == 0): size = 2
+        else: size = 3
         enhancedSquares = []
-        for square in squares:
+        for square in self.__cutArtinSquares(self.art, size):
             enhancedSquares.append(self.enhancementRules[square])
         self.art = self.__recombineSquares(enhancedSquares, size)
 
     def countOn(self):
         return sum([ i.count("#") for i in self.art ])
-
-
 
 
 with open("./input.txt") as f:
@@ -80,4 +72,3 @@ for i in range(18):
     if i == 5: print("Star 1: %i" % art.countOn())
     art.itterate()
 print("Star 2: %i" % art.countOn())
-
