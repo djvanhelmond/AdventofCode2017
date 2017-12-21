@@ -47,13 +47,12 @@ class artGenerator():
         artSize = int(math.sqrt(len(squares)))
         squares = [ square.split("/") for square in squares ]
         newArt = []
-        for h in range(1):
-            for i in range(0, artSize):
-                for j in range(size+1):
-                    line = []
-                    for k in range(artSize):
-                        line.append(squares[(i*artSize)+k][j])
-                    newArt.append("".join(line))
+        for i in range(0, artSize):
+            for j in range(size+1):
+                line = []
+                for k in range(artSize):
+                    line.append(squares[(i*artSize)+k][j])
+                newArt.append("".join(line))
         return newArt
 
     def itterate(self):
