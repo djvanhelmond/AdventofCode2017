@@ -17,8 +17,6 @@ class Particle():
         for i in range(3):
             self.velocity[i] += self.acceleration[i]
             self.position[i] += self.velocity[i]
-        self.originDistance = sum([abs(x) for x in self.position])
-
 
 class Gpu():
     def __init__(self, particleList):
@@ -41,12 +39,9 @@ class Gpu():
         return slowest
 
     def __removeCollisions(self):
-        a = [ self.particles[key].position for key in self.particles ]
-        collisions = [x for n, x in enumerate(a) if x in a[:n]]
-        delkeys = []
-        for key in self.particles:
-            if self.particles[key].position in collisions:
-                delkeys.append(key)
+        allPositions = [ self.particles[key].position for key in self.particles ]
+        collisions = [x for n, x in enumerate(allPositions) if x in allPositions[:n]]
+        delkeys = [ key for key in self.particles if self.particles[key].position in collisions ]
         for key in delkeys:
             del self.particles[key]
 
