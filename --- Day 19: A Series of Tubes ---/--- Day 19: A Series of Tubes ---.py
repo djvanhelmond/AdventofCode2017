@@ -39,24 +39,10 @@ class Tubes():
     def __evalPos(self):
         if self.rd[self.coor[0]][self.coor[1]] == " ":
             self.finished = True
-        elif self.dir == "u" or self.dir == "d":
-            if self.rd[self.coor[0]][self.coor[1]] == "|":
-                pass
-            elif self.rd[self.coor[0]][self.coor[1]] == "-":
-                pass
-            elif self.rd[self.coor[0]][self.coor[1]] == "+":
-                self.__findDirection()
-            elif self.rd[self.coor[0]][self.coor[1]] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-                self.letters.append(self.rd[self.coor[0]][self.coor[1]])
-        elif self.dir == "l" or self.dir == "r":
-            if self.rd[self.coor[0]][self.coor[1]] == "-":
-                pass
-            elif self.rd[self.coor[0]][self.coor[1]] == "|":
-                pass
-            elif self.rd[self.coor[0]][self.coor[1]] == "+":
-                self.__findDirection()
-            elif self.rd[self.coor[0]][self.coor[1]] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-                self.letters.append(self.rd[self.coor[0]][self.coor[1]])
+        elif self.rd[self.coor[0]][self.coor[1]] == "+":
+            self.__findDirection()
+        elif self.rd[self.coor[0]][self.coor[1]] in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+            self.letters.append(self.rd[self.coor[0]][self.coor[1]])
 
     def stepForward(self):
         self.__movePos()
