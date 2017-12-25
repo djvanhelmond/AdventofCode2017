@@ -2,6 +2,7 @@
 
 import math
 
+
 class Particle():
     def __init__(self, position, velocity, acceleration):
         self.position = position
@@ -12,6 +13,11 @@ class Particle():
     def __absoluteAccelleration(self):
         return math.sqrt(sum([ math.pow(val, 2) for val in self.acceleration ]))
 
+    def update(self):
+        for i in range(3):
+            self.velocity[i] += self.acceleration[i]
+            self.position[i] += self.velocity[i]
+        self.originDistance = sum([abs(x) for x in self.position])
 
 
 class Gpu():
@@ -34,7 +40,26 @@ class Gpu():
                 slowest = key
         return slowest
 
+    def __removeCollisions(self):
+        a = [ self.particles[key].position for key in self.particles ]
+        collisions = [x for n, x in enumerate(a) if x in a[:n]]
+        delkeys = []
+        for key in self.particles:
+            if self.particles[key].position in collisions:
+                delkeys.append(key)
+        for key in delkeys:
+            del self.particles[key]
+
+    def tick(self):
+        for key in self.particles:
+            self.particles[key].update()
+        self.__removeCollisions()
+
 
 with open("./input.txt") as f: INPUT = f.readlines()
 canvas = Gpu(INPUT)
 print("Star 1: %i" % canvas.slowestParticle())
+
+for i in range(100):
+    canvas.tick()
+print("Star 2: %i" % len(canvas.particles))
