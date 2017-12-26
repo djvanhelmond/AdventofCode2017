@@ -41,6 +41,9 @@ class CoCpu():
     def __execute(self):
         instruction = self.instruction_list[self.program_counter]
         self.program_counter += 1
+        if instruction[1].isalpha():
+            if instruction[1] not in self.registers:
+                self.registers[instruction[1]] = 0
         self.__instr_set[instruction[0]](*instruction[1:])
 
     def run(self):
@@ -52,13 +55,5 @@ with open("./input.txt") as f:
     INPUT = f.readlines()
 
 cpu = CoCpu(INPUT)
-cpu.registers['a'] = 0
-cpu.registers['b'] = 0
-cpu.registers['c'] = 0
-cpu.registers['d'] = 0
-cpu.registers['e'] = 0
-cpu.registers['f'] = 0
-cpu.registers['g'] = 0
-cpu.registers['h'] = 0
 cpu.run()
 print("Star 1: %i" % cpu.muls)
