@@ -17,14 +17,10 @@ state['A'] = {0: (1, 1, 'B'), 1: (0, -1, 'B')}
 
 class TuringMachine():
     def __init__(self, input):
-        self.startState, self.diagCheck, self.States = self.__parseInput(input)
-        self.state = self.startState
-        self.tape = {}
+        self.state, self.diagCheck, self.States = self.__parseInput(input)
+        self.tape = {0: 0}
         self.cursor = 0
-        for i in xrange(self.diagCheck):
-            if i % 10000 == 1: print(float(i)/12317297)
-            self.__tick()
-        self.__runDiagnosticChecksum()
+        self.currange = [0, 0]
 
     def __parseInput(self, input):
         start = input[0].split()[3][0]
@@ -45,25 +41,27 @@ class TuringMachine():
             i += 1
         return start, diag, states
 
-    def __runDiagnosticChecksum(self):
+    def runDiagnosticChecksum(self):
         print("Star 1: %i" % sum(self.tape.values()))
 
-    def __runState(self):
+    def tick(self):
+        if not self.currange[0] <= self.cursor <= self.currange[1]:
+            self.tape[self.cursor] = 0
+            self.currange = [ min(self.currange[0], self.cursor), max(self.currange[1], self.cursor) ]
         action = self.States[self.state][self.tape[self.cursor]]
         self.tape[self.cursor] = action[0]
         self.cursor += action[1]
         self.state = action[2]
-
-    def __tick(self):
-        if not self.cursor in self.tape.keys():
-            self.tape[self.cursor] = 0
-        self.__runState()
 
 
 with open("./input.txt") as f:
     INPUT = f.readlines()
 
 tm = TuringMachine(INPUT)
+for i in xrange(tm.diagCheck):
+    if i % 1000000 == 317296: print("Calculating: %i%%" % int((float(i) / 123172)))
+    tm.tick()
+tm.runDiagnosticChecksum()
 
 
 
