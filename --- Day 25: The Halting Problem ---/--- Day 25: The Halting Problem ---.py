@@ -45,13 +45,13 @@ class TuringMachine():
         print("Star 1: %i" % sum(self.tape.values()))
 
     def tick(self):
-        if not self.currange[0] <= self.cursor <= self.currange[1]:
-            self.tape[self.cursor] = 0
-            self.currange = [ min(self.currange[0], self.cursor), max(self.currange[1], self.cursor) ]
         action = self.States[self.state][self.tape[self.cursor]]
         self.tape[self.cursor] = action[0]
         self.cursor += action[1]
         self.state = action[2]
+        if not self.currange[0] <= self.cursor <= self.currange[1]:
+            self.tape[self.cursor] = 0
+            self.currange = [ min(self.currange[0], self.cursor), max(self.currange[1], self.cursor) ]
 
 
 with open("./input.txt") as f:
