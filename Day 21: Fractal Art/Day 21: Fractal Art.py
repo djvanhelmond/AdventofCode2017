@@ -1,5 +1,4 @@
 #!/usr/local/bin/python3
-import math
 
 class artGenerator():
     def __init__(self, rules):
@@ -37,7 +36,7 @@ class artGenerator():
         return squares
 
     def __recombineSquares(self, squares):
-        artSize = int(math.sqrt(len(squares)))
+        artSize = int(len(squares)**0.5)
         squares = [ square.split("/") for square in squares ]
         newArt = []
         for i in range(artSize):
